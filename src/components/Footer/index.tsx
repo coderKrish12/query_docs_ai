@@ -20,7 +20,7 @@ function Footer() {
     mode === "light" ? "/images/LogoImage.png" : "/images/LogoImageDark.png";
   return (
     <Grid container className="bg-black text-white">
-      <Grid item xs={12} sm={6} md={3} p={6}>
+      <Grid item xs={12} sm={6} md={3} className="p-6 md:p-10">
         <p>
           Dive into a whole new reading experience! Chat with your favorite
           books using PDF.ai and get ready for interactive conversations that
@@ -64,11 +64,11 @@ function Footer() {
             xs={12}
             sm={6}
             md={3}
-            className="justify-between w-full flex md:hidden "
+            className="justify-between w-full flex md:hidden"
           >
-            <Accordion className="bg-black w-full">
+            <Accordion className="bg-black w-full text-white">
               <AccordionSummary
-                expandIcon={<MdExpandMore />}
+                expandIcon={<MdExpandMore className="text-white" />}
                 aria-controls="panel1-content"
                 id="panel1-header"
                 className="text-md text-lg mb-2 font-medium"
