@@ -1,6 +1,7 @@
 // UI Imports
 import { createTheme, PaletteMode } from "@mui/material";
 import { useMemo } from "react";
+import { Inter } from "next/font/google";
 
 export const COLORS = {
   PRIMARY_COLOR: "#5259F6",
@@ -10,6 +11,7 @@ export const COLORS = {
   DEEP_GREY: "#212121",
   MEDIUM_GREY: "#323232",
 };
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const useAppTheme = ({ mode }: { mode: PaletteMode }) => {
   const getDesignTokens = (mode: PaletteMode) => ({
@@ -49,12 +51,16 @@ export const useAppTheme = ({ mode }: { mode: PaletteMode }) => {
   let theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 
   theme = createTheme(theme, {
-    typography: {
-      allVariants: {
-        fontFamily: "inherit",
-      },
-    },
     components: {
+      MuiTypography: {
+        styleOverrides: {
+          root: {
+            color: theme.palette.text.primary,
+            fontFamily: inter.style.fontFamily,
+            letterSpacing: 1.2,
+          },
+        },
+      },
       MuiButton: {
         variants: [
           {
@@ -77,6 +83,7 @@ export const useAppTheme = ({ mode }: { mode: PaletteMode }) => {
         styleOverrides: {
           root: {
             color: theme.palette.text.primary,
+            fontFamily: inter.style.fontFamily,
           },
         },
       },
@@ -133,3 +140,7 @@ export const useAppTheme = ({ mode }: { mode: PaletteMode }) => {
   });
   return { theme };
 };
+
+const testTheme = createTheme({
+  components: {},
+});

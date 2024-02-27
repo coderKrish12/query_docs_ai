@@ -96,8 +96,8 @@ export default function Navbar(props: Props) {
     <>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        <AppBar component="nav">
-          <Toolbar>
+        <AppBar position="static" component="nav">
+          <Toolbar className="p-4">
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               <Image
                 src={LogoImageUrl}
