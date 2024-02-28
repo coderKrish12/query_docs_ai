@@ -2,11 +2,29 @@
 import Sectionheading from "@/components/SectionHeading";
 import CarouselSlider, { SliderElement } from "@/components/Slider";
 import { ColorModeContext } from "@/store/context/ThemeContext";
-import { AdditionalBenefitsData, HomeProcessFlow } from "@/utils/UtilsData";
-import { Button, Divider, Grid, Typography, useTheme } from "@mui/material";
+import {
+  AdditionalBenefitsData,
+  FeaturesData,
+  HomeProcessFlow,
+  PricingData,
+  TestimonialsData,
+  UseCasesData,
+} from "@/utils/UtilsData";
+import {
+  Avatar,
+  Button,
+  Divider,
+  Grid,
+  InputAdornment,
+  Rating,
+  TextField,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useContext, useLayoutEffect, useState } from "react";
+import { IoStar } from "react-icons/io5";
 const ReactPlayer = dynamic(() => import("react-player/lazy"), {
   ssr: false,
 });
@@ -14,6 +32,34 @@ export default function Home() {
   const theme = useTheme();
   const { mode, toggleColorMode } = useContext(ColorModeContext);
   const [bannerUrl, setBannerUrl] = useState("/images/HomePageBanner.png");
+  const additionalbenefitsSliderConfig = {
+    breakpoints: {
+      "(min-width: 600px)": {
+        slides: { perView: 2, spacing: 50 },
+      },
+      "(min-width: 900px)": {
+        slides: { perView: 4, spacing: 50 },
+      },
+    },
+    slides: {
+      perView: 1,
+      spacing: 50,
+    },
+  };
+  const testimonialsSliderConfig = {
+    breakpoints: {
+      "(min-width: 600px)": {
+        slides: { perView: 2, spacing: 50 },
+      },
+      "(min-width: 900px)": {
+        slides: { perView: 3, spacing: 50 },
+      },
+    },
+    slides: {
+      perView: 1,
+      spacing: 50,
+    },
+  };
 
   useLayoutEffect(() => {
     const handleWindowResize = () => {
@@ -159,7 +205,9 @@ export default function Home() {
       </Grid>
       <Grid
         container
-        bgcolor={theme.palette.background.paper}
+        bgcolor={
+          theme.palette.background[mode === "light" ? "default" : "paper"]
+        }
         zIndex={20}
         position="relative"
       >
@@ -221,17 +269,19 @@ export default function Home() {
       <section
         className="w-full py-10"
         style={{
-          backgroundColor: theme.palette.background.paper,
+          backgroundColor:
+            theme.palette.background[mode === "light" ? "default" : "paper"],
         }}
       >
         <div
           className="rounded-tr-[200px] rounded-bl-[200px] h-full w-full p-10"
           style={{
-            backgroundColor: theme.palette.background.default,
+            backgroundColor:
+              theme.palette.background[mode === "light" ? "paper" : "default"],
           }}
         >
           <Sectionheading text="Additional Benefits" />
-          <CarouselSlider>
+          <CarouselSlider sliderConfig={additionalbenefitsSliderConfig}>
             {AdditionalBenefitsData.map((benefit, i) => {
               return (
                 <SliderElement
@@ -262,6 +312,265 @@ export default function Home() {
             })}
           </CarouselSlider>
         </div>
+      </section>
+      <section
+        className="w-full py-10"
+        style={{
+          backgroundColor:
+            theme.palette.background[mode === "light" ? "default" : "paper"],
+        }}
+      >
+        <Sectionheading text="Our Features" />
+        <Grid container>
+          {FeaturesData.map((feature, i) => {
+            return (
+              <Grid key={i} item xs={12} sm={6} md={4} p={2}>
+                <div
+                  className="flex rounded-lg shadow-lg p-6 h-full"
+                  style={{
+                    backgroundColor: theme.palette.background.default,
+                  }}
+                >
+                  <div className="border rounded-md h-fit flex items-center justify-center p-2 w-2/12">
+                    <Image
+                      src={feature.image}
+                      width={45}
+                      height={45}
+                      alt={feature.title}
+                    />
+                  </div>
+                  <div className="px-4 w-10/12">
+                    <Typography className="font-semibold text-xs">
+                      {feature.title}
+                    </Typography>
+                    <Typography className="text-xs">
+                      {feature.description}
+                    </Typography>
+                  </div>
+                </div>
+              </Grid>
+            );
+          })}
+        </Grid>
+      </section>
+      <section
+        className="w-full py-10"
+        style={{
+          backgroundColor:
+            theme.palette.background[mode === "light" ? "default" : "paper"],
+        }}
+      >
+        <div
+          className="rounded-tr-[200px] rounded-bl-[200px] h-full w-full p-10"
+          style={{
+            backgroundColor:
+              theme.palette.background[mode === "light" ? "paper" : "default"],
+          }}
+        >
+          <Sectionheading text="Use Cases" />
+          <Typography className="w-full text-center mb-8">
+            Unlock the power of your documents across various professions and
+            fields:
+          </Typography>
+          <Grid container my={6}>
+            {UseCasesData.map((useCase, i) => {
+              return (
+                <Grid key={i} item xs={12} sm={6} md={3} p={2}>
+                  <div
+                    className="p-10 text-center h-full shadow-lg rounded-lg flex flex-col items-center justify-between"
+                    style={{
+                      backgroundColor:
+                        theme.palette.background[
+                          mode === "light" ? "default" : "paper"
+                        ],
+                    }}
+                  >
+                    <Image
+                      src={useCase.image}
+                      width={0}
+                      height={0}
+                      className="w-[50px] h-[50px]"
+                      unoptimized
+                      alt={useCase.title}
+                    />
+                    <Typography className="my-6 font-medium">
+                      {useCase.title}
+                    </Typography>
+                    <Typography className="text-sm">
+                      {useCase.description}
+                    </Typography>
+                  </div>
+                </Grid>
+              );
+            })}
+          </Grid>
+        </div>
+      </section>
+      <section
+        className="w-full py-10"
+        style={{
+          backgroundColor:
+            theme.palette.background[mode === "light" ? "default" : "paper"],
+        }}
+      >
+        <Sectionheading text="A pricing solutions for businesses of all sizes" />
+        <Grid container justifyContent="center">
+          {PricingData.map((pricing, i) => {
+            return (
+              <Grid key={i} xs={12} sm={6} md={3} p={4}>
+                <div
+                  className="shadow-lg rounded-lg flex flex-col h-full"
+                  style={{
+                    backgroundColor: theme.palette.background.default,
+                    paddingTop: !pricing.recommended ? "30px" : "",
+                  }}
+                >
+                  {pricing.recommended && (
+                    <Typography className="w-full bg-black text-center uppercase text-xs py-2 rounded-t-lg text-white font-semibold">
+                      Recommended
+                    </Typography>
+                  )}
+                  <div className="flex flex-col p-6">
+                    <div className="flex items-center justify-between">
+                      <Typography className="font-bold">
+                        {pricing.title}
+                      </Typography>
+                      <Typography
+                        className="text-xl italic font-medium capitalize"
+                        style={{
+                          color: theme.palette.primary.main,
+                        }}
+                      >
+                        {pricing.period}ly
+                      </Typography>
+                    </div>
+                    <div className="flex items-end">
+                      <Typography
+                        className="text-3xl font-bold"
+                        style={{
+                          color:
+                            mode === "dark" ? theme.palette.primary.main : "",
+                        }}
+                      >
+                        {pricing.price}
+                      </Typography>
+                      <Typography className="text-sm font-semibold ml-4">
+                        /{pricing.period}
+                      </Typography>
+                    </div>
+                    <Typography
+                      className="text-3xl font-bold mt-2"
+                      style={{
+                        color:
+                          mode === "dark" ? theme.palette.primary.main : "",
+                      }}
+                    >
+                      {pricing.credits} credits
+                    </Typography>
+                    <Typography className="text-xs mt-4">
+                      {pricing.description}
+                    </Typography>
+                    <Button
+                      variant="contained"
+                      className="capitalize text-xs p-3 my-6"
+                    >
+                      Explore
+                    </Button>
+                    <Typography className="uppercase text-xs text-center">
+                      No Credit Cards required
+                    </Typography>
+                  </div>
+                </div>
+              </Grid>
+            );
+          })}
+        </Grid>
+      </section>
+      <section
+        className="w-full py-10"
+        style={{
+          backgroundColor: theme.palette.background.default,
+        }}
+      >
+        <div
+          className="h-full w-full p-10"
+          style={{
+            backgroundColor: theme.palette.background.default,
+          }}
+        >
+          <Sectionheading text="Testimonials" />
+          <CarouselSlider sliderConfig={testimonialsSliderConfig}>
+            {TestimonialsData.map((testimonial, i) => {
+              return (
+                <SliderElement
+                  key={i}
+                  className={`number-slide${i} flex flex-col p-6 rounded-[20px] text-center shadow-lg`}
+                  style={{
+                    backgroundColor:
+                      theme.palette.background[
+                        mode === "light" ? "default" : "paper"
+                      ],
+                  }}
+                >
+                  <div className="flex">
+                    <Avatar
+                      sx={{ width: 70, height: 70 }}
+                      src={testimonial.image}
+                      alt={testimonial.name}
+                    />
+                    <div className="flex flex-col items-start ml-6">
+                      <Typography
+                        className="text-xl font-semibold"
+                        sx={{
+                          color: theme.palette.primary.main,
+                        }}
+                      >
+                        {testimonial.name}
+                      </Typography>
+                      <Typography className="text-[10px]">
+                        {testimonial.occupation}
+                      </Typography>
+                      <Rating
+                        value={testimonial.rating}
+                        emptyIcon={<IoStar />}
+                      />
+                    </div>
+                  </div>
+                  <Typography className="text-xs p-6 text-start leading-5">
+                    {testimonial.feedback}
+                  </Typography>
+                </SliderElement>
+              );
+            })}
+          </CarouselSlider>
+        </div>
+      </section>
+      <section
+        className="p-8 md:p-12 flex flex-col items-center text-center"
+        style={{
+          backgroundColor: theme.palette.primary.main,
+        }}
+      >
+        <Typography className="text-xl md:text-4xl font-semibold my-4 text-white">
+          Subscribe to our newsletter
+        </Typography>
+        <Typography className="my-4 text-sm md:text-md text-white">
+          Lorem Ipsum is simply dummy text of the printing.
+        </Typography>
+        <TextField
+          placeholder="Email"
+          className="w-full sm:w-3/4 md:w-2/4 mt-4 mb-12 [&_div]:!p-2"
+          sx={{}}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <Button variant="contained" className="px-10">
+                  Send
+                </Button>
+              </InputAdornment>
+            ),
+          }}
+        />
       </section>
     </>
   );

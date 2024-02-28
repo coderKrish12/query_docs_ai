@@ -4,23 +4,18 @@ import "keen-slider/keen-slider.min.css";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { IconButton, useTheme } from "@mui/material";
 
-function CarouselSlider({ children }: ChildrenProps) {
+function CarouselSlider({
+  children,
+  sliderConfig,
+}: {
+  children: React.ReactNode;
+  sliderConfig: Object;
+}) {
   const theme = useTheme();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
-    breakpoints: {
-      "(min-width: 600px)": {
-        slides: { perView: 2, spacing: 50 },
-      },
-      "(min-width: 900px)": {
-        slides: { perView: 4, spacing: 50 },
-      },
-    },
-    slides: {
-      perView: 1,
-      spacing: 50,
-    },
+    ...sliderConfig,
     slideChanged(slider) {
       setCurrentSlide(slider.track.details.rel);
     },
