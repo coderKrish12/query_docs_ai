@@ -1,7 +1,19 @@
 "use client";
+// Next Imports
+import dynamic from "next/dynamic";
+import Image from "next/image";
+
+// React Imports
+import { useContext, useLayoutEffect, useState } from "react";
+
+// UI Component Imports
 import Sectionheading from "@/components/SectionHeading";
 import CarouselSlider, { SliderElement } from "@/components/Slider";
+
+// Context Imports
 import { ColorModeContext } from "@/store/context/ThemeContext";
+
+// Util Imports
 import {
   AdditionalBenefitsData,
   FeaturesData,
@@ -10,6 +22,8 @@ import {
   TestimonialsData,
   UseCasesData,
 } from "@/utils/UtilsData";
+
+// UI Imports
 import {
   Avatar,
   Button,
@@ -21,15 +35,19 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import dynamic from "next/dynamic";
-import Image from "next/image";
-import { useContext, useLayoutEffect, useState } from "react";
+
+// Icon Imports
 import { IoStar } from "react-icons/io5";
+
+// Third party Imports
+import { useRouter } from "next-nprogress-bar";
 const ReactPlayer = dynamic(() => import("react-player/lazy"), {
   ssr: false,
 });
+
 export default function Home() {
   const theme = useTheme();
+  const router = useRouter();
   const { mode, toggleColorMode } = useContext(ColorModeContext);
   const [bannerUrl, setBannerUrl] = useState("/images/HomePageBanner.png");
   const additionalbenefitsSliderConfig = {
@@ -135,6 +153,9 @@ export default function Home() {
         <Button
           variant="contained"
           className="capitalize px-10 w-full md:w-fit"
+          onClick={() => {
+            router.push("/dashboard");
+          }}
         >
           Try for free
         </Button>
@@ -417,7 +438,7 @@ export default function Home() {
         <Grid container justifyContent="center">
           {PricingData.map((pricing, i) => {
             return (
-              <Grid key={i} xs={12} sm={6} md={3} p={4}>
+              <Grid key={i} item xs={12} sm={6} md={3} p={4}>
                 <div
                   className="shadow-lg rounded-lg flex flex-col h-full"
                   style={{
@@ -546,7 +567,7 @@ export default function Home() {
         </div>
       </section>
       <section
-        className="p-8 md:p-12 flex flex-col items-center text-center"
+        className="p-8 md:p-16 flex flex-col items-center text-center"
         style={{
           backgroundColor: theme.palette.primary.main,
         }}

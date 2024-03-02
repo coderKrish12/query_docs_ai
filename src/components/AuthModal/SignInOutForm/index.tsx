@@ -1,3 +1,10 @@
+// React Imports
+import { useState, useContext } from "react";
+
+// Next Imports
+import Image from "next/image";
+
+// UI Imports
 import {
   Button,
   Divider,
@@ -7,16 +14,23 @@ import {
   FormControlLabel,
   Checkbox,
 } from "@mui/material";
+
 // Third part Imports
 import * as yup from "yup";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState, useContext } from "react";
+
+// UI Component Imports
 import FormInput from "@/components/FormComponents/FormInput";
-import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
-import Image from "next/image";
+
+// Utils Imports
 import { AuthModalLeftContentLines } from "@/utils/UtilsData";
+
+// Icon imports
 import { FaCheck } from "react-icons/fa6";
+import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
+
+// Context imports
 import { ColorModeContext } from "@/store/context/ThemeContext";
 
 function SignInOut({ setFormType }: { setFormType: (value: string) => void }) {

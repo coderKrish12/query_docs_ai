@@ -4,6 +4,14 @@ interface ChildrenProps {
   children?: React.ReactNode;
 }
 
+interface SelectItemProps {
+  label: string | undefined;
+  value: string | number | undefined;
+}
+interface SelectDropdownProps extends InputProps {
+  options: SelectItemProps[];
+}
+
 interface InputProps extends ChildrenProps {
   label: string;
   error?: string;

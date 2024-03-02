@@ -1,5 +1,8 @@
-import { Typography } from "@mui/material";
+// React Imports
 import React from "react";
+
+// UI Imports
+import { Typography } from "@mui/material";
 
 function Sectionheading({ text }: { text: string }) {
   return (

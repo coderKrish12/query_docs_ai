@@ -1,23 +1,37 @@
 "use client";
 
+// React Imports
 import React, { useState, useRef, useContext } from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
-import Drawer from "@mui/material/Drawer";
-import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import { IoMenu } from "react-icons/io5";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
+
+// Next Imports
 import Image from "next/image";
 import dynamic from "next/dynamic";
+
+// UI Imports
+import {
+  AppBar,
+  Box,
+  CssBaseline,
+  Divider,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Toolbar,
+  Typography,
+  Button,
+} from "@mui/material";
+
+// Context Imports
 import { ColorModeContext } from "@/store/context/ThemeContext";
+
+// Third party Imports
+import { useRouter } from "next-nprogress-bar";
+
+// Icons Imports
+import { IoMenu } from "react-icons/io5";
 
 const AuthModalNoSSR = dynamic(() => import("@/components/AuthModal"), {
   ssr: false,
@@ -32,11 +46,17 @@ interface Props {
 }
 
 const drawerWidth = 240;
-const navItems = ["Home", "Features", "Pricing", "Contact Us"];
+const navItems = [
+  { label: "Home", path: "/" },
+  { label: "Features", path: "/" },
+  { label: "Pricing", path: "/" },
+  { label: "Contact Us", path: "/" },
+];
 
 export default function Navbar(props: Props) {
   const { window } = props;
   const { mode } = useContext(ColorModeContext);
+  const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const authDialogRef = useRef<HTMLDialogElement>(null);
   const LogoImageUrl =
@@ -72,9 +92,15 @@ export default function Navbar(props: Props) {
       <Divider className="w-full" />
       <List>
         {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
+          <ListItem
+            key={item.label}
+            disablePadding
+            onClick={() => {
+              router.push(item.path);
+            }}
+          >
             <ListItemButton className="text-center">
-              <ListItemText primary={item} />
+              <ListItemText primary={item.label} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -120,8 +146,14 @@ export default function Navbar(props: Props) {
             </IconButton>
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
               {navItems.map((item) => (
-                <Button key={item} className="mx-3 font-semibold">
-                  {item}
+                <Button
+                  key={item.label}
+                  className="mx-3 font-semibold"
+                  onClick={() => {
+                    router.push(item.path);
+                  }}
+                >
+                  {item.label}
                 </Button>
               ))}
               <Button

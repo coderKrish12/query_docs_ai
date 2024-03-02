@@ -1,8 +1,15 @@
+// React Imports
 import React, { useState } from "react";
+
+// UI Imports
+import { IconButton, useTheme } from "@mui/material";
+
+// Third party Imports
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
+
+// Icon Imports
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
-import { IconButton, useTheme } from "@mui/material";
 
 function CarouselSlider({
   children,

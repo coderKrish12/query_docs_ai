@@ -1,9 +1,16 @@
+// React Imports
 import React, { RefObject, useState } from "react";
-import Modal from "../Modal";
+
+// UI Imports
 import { IconButton } from "@mui/material";
+
+// Icon Imports
 import { FaXmark } from "react-icons/fa6";
-import SignInOut from "./SignInOutForm";
-import ForgotPassword from "./ForgotPassword";
+
+// UI Component Imports
+import SignInOut from "@/components/AuthModal/SignInOutForm";
+import ForgotPassword from "@/components/AuthModal/ForgotPassword";
+import Modal from "@/components/Modal";
 
 function AuthModal({ dialogRef }: { dialogRef: RefObject<HTMLDialogElement> }) {
   const [formType, setFormType] = useState<string>("auth");

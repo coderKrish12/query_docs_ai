@@ -1,5 +1,8 @@
 // React imports
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useState } from "react";
+
+// Next Imports
+import Image from "next/image";
 
 // Third party imports
 import {
@@ -13,18 +16,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 // UI Imports
-import {
-  Stack,
-  Stepper,
-  Step,
-  StepLabel,
-  StepContent,
-  Button,
-  useTheme,
-  Divider,
-} from "@mui/material";
+import { Button, useTheme, Divider } from "@mui/material";
+
+// UI Component Imports
 import FormInput from "@/components/FormComponents/FormInput";
-import Image from "next/image";
+
+// Context Imports
 import { ColorModeContext } from "@/store/context/ThemeContext";
 
 const steps = [

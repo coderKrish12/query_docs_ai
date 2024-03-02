@@ -1,5 +1,10 @@
-import { ColorModeContext } from "@/store/context/ThemeContext";
-import { FooterSections } from "@/utils/UtilsData";
+// React Imports
+import { useContext } from "react";
+
+// Next Imports
+import Image from "next/image";
+
+// UI Imports
 import {
   Accordion,
   AccordionDetails,
@@ -8,10 +13,16 @@ import {
   Grid,
   useTheme,
 } from "@mui/material";
-import Image from "next/image";
-import { useContext } from "react";
+
+// Icon Imports
 import { MdExpandMore } from "react-icons/md";
 import { FaRegCopyright } from "react-icons/fa";
+
+// Context Imports
+import { ColorModeContext } from "@/store/context/ThemeContext";
+
+// Util Imports
+import { FooterSections } from "@/utils/UtilsData";
 
 function Footer() {
   const theme = useTheme();

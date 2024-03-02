@@ -1,6 +1,10 @@
+// React Imports
+import { useMemo } from "react";
+
 // UI Imports
 import { createTheme, PaletteMode } from "@mui/material";
-import { useMemo } from "react";
+
+// Font imports
 import { Inter } from "next/font/google";
 
 export const COLORS = {
@@ -90,10 +94,13 @@ export const useAppTheme = ({ mode }: { mode: PaletteMode }) => {
       MuiOutlinedInput: {
         styleOverrides: {
           root: {
-            width: "100%",
             color: "black",
             backgroundColor: COLORS.WHITE_COLOR,
             borderRadius: "8px",
+            "& .MuiInputBase-input": {
+              padding: "8px!important",
+              fontFamily: inter.style.fontFamily,
+            },
             "& .MuiOutlinedInput-notchedOutline": {
               borderRadius: "6px",
               border: `2px solid ${theme.palette.text.secondary}`,
@@ -127,11 +134,22 @@ export const useAppTheme = ({ mode }: { mode: PaletteMode }) => {
             width: "100%",
             "& .MuiInputBase-input": {
               padding: "8px!important",
+              fontFamily: inter.style.fontFamily,
             },
             "& input::placeholder": {
               color: "black",
               fontSize: "0.85rem",
               fontWeight: 500,
+            },
+          },
+        },
+      },
+      MuiSelect: {
+        styleOverrides: {
+          root: {
+            "& .MuiSelect-select": {
+              padding: "8px!important",
+              fontFamily: inter.style.fontFamily,
             },
           },
         },
@@ -142,5 +160,16 @@ export const useAppTheme = ({ mode }: { mode: PaletteMode }) => {
 };
 
 const testTheme = createTheme({
-  components: {},
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          "& .MuiInputBase-input": {
+            padding: "8px!important",
+            fontFamily: inter.style.fontFamily,
+          },
+        },
+      },
+    },
+  },
 });

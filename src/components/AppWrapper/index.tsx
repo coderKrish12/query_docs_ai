@@ -1,12 +1,21 @@
 "use client";
-// UI Imports
-import { ThemeProvider, createTheme, PaletteMode } from "@mui/material";
-import Navbar from "@/components/Navbar";
-import { ColorModeContext } from "@/store/context/ThemeContext";
+
+//react Imports
 import { useMemo, useState } from "react";
-import { deepmerge } from "@mui/utils";
+
+// UI Imports
+import { ThemeProvider, PaletteMode } from "@mui/material";
+
+// Context Imports
+import { ColorModeContext } from "@/store/context/ThemeContext";
 import { useAppTheme } from "@/app/useAppTheme";
-import Footer from "../Footer";
+
+//UI Components Imports
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+
+// Third party Imports
+import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
 
 function AppWrapper({ children }: ChildrenProps) {
   const [mode, setMode] = useState<PaletteMode>("light");
@@ -27,6 +36,12 @@ function AppWrapper({ children }: ChildrenProps) {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <Navbar />
+        <ProgressBar
+          height="4px"
+          color={theme.palette.primary.main}
+          options={{ showSpinner: false }}
+          shallowRouting
+        />
         <main className="flex min-h-svh flex-col">{children}</main>
         <Footer />
       </ThemeProvider>
