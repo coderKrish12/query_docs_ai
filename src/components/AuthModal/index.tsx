@@ -10,7 +10,11 @@ import { FaXmark } from "react-icons/fa6";
 // UI Component Imports
 import SignInOut from "@/components/AuthModal/SignInOutForm";
 import ForgotPassword from "@/components/AuthModal/ForgotPassword";
-import Modal from "@/components/Modal";
+import dynamic from "next/dynamic";
+const Modal = dynamic(() => import("@/components/Modal"), {
+  loading: () => <p>Loading...</p>,
+  ssr: false,
+});
 
 function AuthModal({ dialogRef }: { dialogRef: RefObject<HTMLDialogElement> }) {
   const [formType, setFormType] = useState<string>("auth");

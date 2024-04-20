@@ -1,74 +1,107 @@
 // React Imports
-import { forwardRef } from "react";
+import { SyntheticEvent, forwardRef } from "react";
 
 // UI Imports
-import { OutlinedInput, MenuItem, Select, ListItemText } from "@mui/material";
+import {
+  TextField,
+  Autocomplete,
+  MenuItem,
+  FormControl,
+  useTheme,
+} from "@mui/material";
+
+// UI Components Imports
+import ErrorMessage from "@/components/FormComponents//ErrorMesssage";
 
 // Icon Imports
 import { FaCheck } from "react-icons/fa6";
 
-const ITEM_HEIGHT = 32;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
+const SelectDropdownAutocomplete = forwardRef(
+  (
+    {
+      label,
+      children,
+      options,
+      error,
+      optional,
+      ...props
+    }: SelectDropdownProps,
+    ref
+  ) => {
+    const theme = useTheme();
 
-const SelectDropdown = forwardRef(
-  ({ label, children, options, error, ...props }: SelectDropdownProps, ref) => {
-    // funtion handle multiple or single value
-    const renderSelectedValue = (selected: string[] | string) => {
-      if (!selected) {
-        return <em>{props?.placeholder}</em>;
-      }
-      let selectedValue: any = "";
-      if (props.multiple && Array.isArray(selected)) {
-        selectedValue =
-          selected.length > 0
-            ? options
-                .map((option: any) =>
-                  selected.includes(option.value) ? option.label : ""
-                )
-                .filter((value: string) => value !== "")
-                .join(", ")
-            : selected.join(",");
-      } else {
-        selectedValue =
-          selected !== ""
-            ? options.filter(
-                (option: SelectItemProps) => option.value == selected
-              )[0]?.label
-            : "";
-      }
-      return selectedValue;
+    const renderOption = (optionProps: any, option: SelectItemProps) => {
+      const { key, ...restProps } = optionProps;
+      return (
+        <MenuItem key={key} {...restProps}>
+          <p className="capitalize text-sm">{option.label}</p>
+          {props.value && (
+            <>
+              {(props.multiple
+                ? props.value.findIndex(
+                    (val: SelectItemProps) => val.value === option.value
+                  ) > -1
+                : option.value === props.value) && <FaCheck className="mx-2" />}
+            </>
+          )}
+        </MenuItem>
+      );
     };
+
     return (
-      <Select
-        ref={ref}
-        labelId="demo-multiple-checkbox-label"
-        renderValue={renderSelectedValue}
-        input={<OutlinedInput />}
-        {...props}
-        MenuProps={MenuProps}
-        displayEmpty
-      >
-        {options?.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            <ListItemText className="capitalize" primary={option.label} />
-            {(props.multiple
-              ? props.value.indexOf(option.value) > -1
-              : option.value === props.value) && <FaCheck className="mx-2" />}
-          </MenuItem>
-        ))}
-      </Select>
+      <FormControl fullWidth variant="outlined" className="flex items-start">
+        <p
+          className="font-semibold text-[0.95rem] mb-1 min-w-[200px]"
+          style={{
+            color: theme.palette.text.primary,
+          }}
+        >
+          {label}
+          <span className="text-[#FF0000]">{!optional && `*`}</span>
+        </p>
+        <Autocomplete
+          fullWidth
+          ref={ref}
+          className="p-0 capitalize"
+          options={options || []}
+          autoHighlight
+          value={props.value}
+          disablePortal
+          {...props}
+          onChange={(
+            event: SyntheticEvent<Element, Event>,
+            newValue: SelectItemProps | SelectItemProps[]
+          ) => {
+            props.onChange(newValue);
+          }}
+          getOptionLabel={(option: SelectItemProps | string) =>
+            `${
+              typeof option === "object"
+                ? option.label
+                : option.split("_").join(" ")
+            }`
+          }
+          isOptionEqualToValue={(option: SelectItemProps, value: any) =>
+            option.value ===
+            `${typeof value === "object" ? value.value : value}`
+          }
+          renderOption={props.renderOption ?? renderOption}
+          renderInput={(params) => {
+            return (
+              <TextField
+                className="[&_input]:capitalize"
+                placeholder={props.placeholder}
+                {...params}
+              />
+            );
+          }}
+        />
+        {error && <ErrorMessage>{error}</ErrorMessage>}
+      </FormControl>
     );
   }
 );
 
-SelectDropdown.displayName = "SelectDropdown";
+SelectDropdownAutocomplete.displayName = "SelectDropdownAutocomplete";
 
-export default SelectDropdown;
+export default SelectDropdownAutocomplete;

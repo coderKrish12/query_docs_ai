@@ -8,7 +8,7 @@ const Modal = forwardRef(function Modal(
 ) {
   const modalElement = document.body;
   return createPortal(
-    <dialog ref={ref} className="w-full sm:w-fit sm:rounded-2xl">
+    <dialog ref={ref} className="w-full sm:w-fit sm:rounded-2xl max-h-[90svh]">
       {children}
     </dialog>,
     modalElement

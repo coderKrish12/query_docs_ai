@@ -22,6 +22,7 @@ import {
   Toolbar,
   Typography,
   Button,
+  useTheme,
 } from "@mui/material";
 
 // Context Imports
@@ -37,17 +38,10 @@ const AuthModalNoSSR = dynamic(() => import("@/components/AuthModal"), {
   ssr: false,
 });
 
-interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window?: () => Window;
-}
-
 const drawerWidth = 240;
 const navItems = [
   { label: "Home", path: "/" },
+  { label: "Docs", path: "/dashboard/docs" },
   { label: "Features", path: "/" },
   { label: "Pricing", path: "/" },
   { label: "Contact Us", path: "/" },
@@ -57,6 +51,7 @@ export default function Navbar(props: Props) {
   const { window } = props;
   const { mode } = useContext(ColorModeContext);
   const router = useRouter();
+  const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
   const authDialogRef = useRef<HTMLDialogElement>(null);
   const LogoImageUrl =
@@ -74,10 +69,12 @@ export default function Navbar(props: Props) {
       onClick={handleDrawerToggle}
       sx={{
         textAlign: "center",
-        justifyContent: "center",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        backgroundColor:
+          theme.palette.background[`${mode === "light" ? "default" : "paper"}`],
+        height: "100%",
       }}
     >
       <Image
@@ -115,7 +112,7 @@ export default function Navbar(props: Props) {
     </Box>
   );
 
-  const container =
+  const container: any =
     window !== undefined ? () => window().document.body : undefined;
 
   return (
@@ -142,7 +139,7 @@ export default function Navbar(props: Props) {
               onClick={handleDrawerToggle}
               sx={{ display: { sm: "none" } }}
             >
-              <IoMenu className="text-black" />
+              <IoMenu color={theme.palette.text.primary} />
             </IconButton>
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
               {navItems.map((item) => (
@@ -170,6 +167,7 @@ export default function Navbar(props: Props) {
           <Drawer
             container={container}
             variant="temporary"
+            anchor="right"
             open={mobileOpen}
             onClose={handleDrawerToggle}
             ModalProps={{

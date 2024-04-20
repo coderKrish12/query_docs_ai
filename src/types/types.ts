@@ -1,5 +1,12 @@
 //UI Components types
 
+interface Props {
+  /**
+   * Injected by the documentation to work in an iframe.
+   * You won't need it on your project.
+   */
+  window?: () => Window;
+}
 interface ChildrenProps {
   children?: React.ReactNode;
 }
@@ -29,3 +36,9 @@ type ForgotPasswordProps = {
   new_password: string;
   confirm_password: string;
 };
+
+interface DocumentUploadProps {
+  name: string;
+  tags?: SelectItemProps[];
+  category?: string;
+}

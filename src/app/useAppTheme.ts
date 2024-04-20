@@ -96,9 +96,10 @@ export const useAppTheme = ({ mode }: { mode: PaletteMode }) => {
           root: {
             color: "black",
             backgroundColor: COLORS.WHITE_COLOR,
-            borderRadius: "8px",
+            borderRadius: "6px",
+            padding: "0px!important",
             "& .MuiInputBase-input": {
-              padding: "8px!important",
+              padding: "6px!important",
               fontFamily: inter.style.fontFamily,
             },
             "& .MuiOutlinedInput-notchedOutline": {
@@ -133,11 +134,10 @@ export const useAppTheme = ({ mode }: { mode: PaletteMode }) => {
           root: {
             width: "100%",
             "& .MuiInputBase-input": {
-              padding: "8px!important",
+              padding: "6px!important",
               fontFamily: inter.style.fontFamily,
             },
             "& input::placeholder": {
-              color: "black",
               fontSize: "0.85rem",
               fontWeight: 500,
             },
@@ -148,9 +148,16 @@ export const useAppTheme = ({ mode }: { mode: PaletteMode }) => {
         styleOverrides: {
           root: {
             "& .MuiSelect-select": {
-              padding: "8px!important",
+              padding: "6px!important",
               fontFamily: inter.style.fontFamily,
             },
+          },
+        },
+      },
+      MuiPaper: {
+        styleOverrides: {
+          root: {
+            backgroundColor: theme.palette.background.default,
           },
         },
       },
@@ -161,12 +168,36 @@ export const useAppTheme = ({ mode }: { mode: PaletteMode }) => {
 
 const testTheme = createTheme({
   components: {
-    MuiOutlinedInput: {
+    MuiCheckbox: {
       styleOverrides: {
         root: {
+          "&.Mui-checked": {
+            color: "success.main", // Set the color of the checkbox when checked
+          },
+          "& .MuiSvgIcon-root": {
+            fontSize: 28, // Adjust the size of the checkbox icon
+          },
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "white",
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          width: "100%",
           "& .MuiInputBase-input": {
             padding: "8px!important",
             fontFamily: inter.style.fontFamily,
+          },
+          "& input::placeholder": {
+            fontSize: "0.85rem",
+            fontWeight: 500,
           },
         },
       },

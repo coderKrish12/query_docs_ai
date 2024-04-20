@@ -1,3 +1,5 @@
+"use client";
+
 // React Imports
 import { forwardRef } from "react";
 
@@ -13,7 +15,7 @@ const FormInput = forwardRef(
     return (
       <div className="w-full">
         <p
-          className="font-bold text-[0.95rem] mb-1"
+          className="font-semibold text-[0.95rem] mb-1"
           style={{
             color: theme.palette.text.primary,
           }}
@@ -22,7 +24,7 @@ const FormInput = forwardRef(
           <span className="text-[#FF0000]">{!optional && `*`}</span>
         </p>
         <TextField
-          className="shadow-sm"
+          className={`shadow-sm ${props.className}`}
           inputRef={ref}
           {...props}
           error={error ? true : false}
