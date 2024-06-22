@@ -42,3 +42,16 @@ interface DocumentUploadProps {
   tags?: SelectItemProps[];
   category?: string;
 }
+
+interface UserProps {
+  id: number;
+  first_name: string;
+  last_name: string;
+  mobile_number: string;
+  email?: string;
+  photo?: string;
+  aadhar_card: string;
+  aadhar_id: string;
+  staff_type: string;
+  last_login: string;
+}

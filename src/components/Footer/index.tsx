@@ -19,7 +19,7 @@ import { MdExpandMore } from "react-icons/md";
 import { FaRegCopyright } from "react-icons/fa";
 
 // Context Imports
-import { ColorModeContext } from "@/store/context/ThemeContext";
+import { ColorModeContext } from "@/appStateStore/context/ThemeContext";
 
 // Util Imports
 import { FooterSections } from "@/utils/UtilsData";

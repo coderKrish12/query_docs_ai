@@ -28,7 +28,7 @@ import DocumentUploadModal from "@/components/DocumentUploadModal";
 import dayjs from "dayjs";
 
 // Context Imports
-import { ColorModeContext } from "@/store/context/ThemeContext";
+import { ColorModeContext } from "@/appStateStore/context/ThemeContext";
 
 // Icon Imports
 import { LuSendHorizonal } from "react-icons/lu";

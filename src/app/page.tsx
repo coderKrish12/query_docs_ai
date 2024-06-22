@@ -11,7 +11,7 @@ import Sectionheading from "@/components/SectionHeading";
 import CarouselSlider, { SliderElement } from "@/components/Slider";
 
 // Context Imports
-import { ColorModeContext } from "@/store/context/ThemeContext";
+import { ColorModeContext } from "@/appStateStore/context/ThemeContext";
 
 // Util Imports
 import {

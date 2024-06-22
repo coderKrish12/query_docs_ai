@@ -7,7 +7,7 @@ import { useMemo, useState } from "react";
 import { ThemeProvider, PaletteMode } from "@mui/material";
 
 // Context Imports
-import { ColorModeContext } from "@/store/context/ThemeContext";
+import { ColorModeContext } from "@/appStateStore/context/ThemeContext";
 import { useAppTheme } from "@/app/useAppTheme";
 
 //UI Components Imports
@@ -16,6 +16,11 @@ import Footer from "@/components/Footer";
 
 // Third party Imports
 import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
+
+// Redux Imports
+import { Provider } from "react-redux";
+import { persistor, store } from "@/appStateStore/redux/store";
+import { PersistGate } from "redux-persist/integration/react";
 
 function AppWrapper({ children }: ChildrenProps) {
   const [mode, setMode] = useState<PaletteMode>("light");
@@ -33,19 +38,23 @@ function AppWrapper({ children }: ChildrenProps) {
   const { theme } = useAppTheme({ mode: mode });
 
   return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <Navbar />
-        <ProgressBar
-          height="4px"
-          color={theme.palette.primary.main}
-          options={{ showSpinner: false }}
-          shallowRouting
-        />
-        <main className="flex min-h-svh flex-col">{children}</main>
-        <Footer />
-      </ThemeProvider>
-    </ColorModeContext.Provider>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <ColorModeContext.Provider value={colorMode}>
+          <ThemeProvider theme={theme}>
+            <Navbar />
+            <ProgressBar
+              height="4px"
+              color={theme.palette.primary.main}
+              options={{ showSpinner: false }}
+              shallowRouting
+            />
+            <main className="flex min-h-svh flex-col">{children}</main>
+            <Footer />
+          </ThemeProvider>
+        </ColorModeContext.Provider>
+      </PersistGate>
+    </Provider>
   );
 }
 

@@ -1,7 +1,7 @@
 "use client";
 
 // React Imports
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useContext } from "react";
 
 // Next Imports
 import Image from "next/image";
@@ -26,7 +26,7 @@ import {
 } from "@mui/material";
 
 // Context Imports
-import { ColorModeContext } from "@/store/context/ThemeContext";
+import { ColorModeContext } from "@/appStateStore/context/ThemeContext";
 
 // Third party Imports
 import { useRouter } from "next-nprogress-bar";
@@ -53,15 +53,15 @@ export default function Navbar(props: Props) {
   const router = useRouter();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const authDialogRef = useRef<HTMLDialogElement>(null);
+  const [openAuthModal, setOpenAuthModal] = useState(false);
   const LogoImageUrl =
     mode === "light" ? "/images/LogoImage.png" : "/images/LogoImageDark.png";
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
 
-  const handleAuthModalOpen = () => {
-    authDialogRef.current?.showModal();
+  const handleAuthModalToggle = () => {
+    setOpenAuthModal((prevState) => !prevState);
   };
 
   const drawer = (
@@ -104,7 +104,7 @@ export default function Navbar(props: Props) {
         <Button
           variant="contained"
           className="mx-3"
-          onClick={handleAuthModalOpen}
+          onClick={handleAuthModalToggle}
         >
           Sign In
         </Button>
@@ -156,7 +156,7 @@ export default function Navbar(props: Props) {
               <Button
                 variant="contained"
                 className="mx-3"
-                onClick={handleAuthModalOpen}
+                onClick={handleAuthModalToggle}
               >
                 Sign In
               </Button>
@@ -185,7 +185,10 @@ export default function Navbar(props: Props) {
           </Drawer>
         </nav>
       </Box>
-      <AuthModalNoSSR dialogRef={authDialogRef} />
+      <AuthModalNoSSR
+        open={openAuthModal}
+        handleModalToggle={handleAuthModalToggle}
+      />
     </>
   );
 }

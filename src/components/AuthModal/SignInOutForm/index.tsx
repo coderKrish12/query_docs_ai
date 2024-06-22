@@ -31,7 +31,7 @@ import { FaCheck } from "react-icons/fa6";
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
 
 // Context imports
-import { ColorModeContext } from "@/store/context/ThemeContext";
+import { ColorModeContext } from "@/appStateStore/context/ThemeContext";
 
 function SignInOut({ setFormType }: { setFormType: (value: string) => void }) {
   const theme = useTheme();
@@ -213,6 +213,7 @@ function SignInOut({ setFormType }: { setFormType: (value: string) => void }) {
                   endAdornment: (
                     <InputAdornment position="end">
                       <IconButton
+                        className="mr-0.5"
                         aria-label="toggle password visibility"
                         onClick={showPasswordHandler}
                         edge="end"

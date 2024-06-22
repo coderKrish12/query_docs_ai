@@ -22,7 +22,7 @@ import { Button, useTheme, Divider } from "@mui/material";
 import FormInput from "@/components/FormComponents/FormInput";
 
 // Context Imports
-import { ColorModeContext } from "@/store/context/ThemeContext";
+import { ColorModeContext } from "@/appStateStore/context/ThemeContext";
 
 const steps = [
   {

@@ -1,8 +1,8 @@
 // React Imports
-import React, { RefObject, useState } from "react";
+import React, { useState } from "react";
 
 // UI Imports
-import { IconButton } from "@mui/material";
+import { Dialog, IconButton } from "@mui/material";
 
 // Icon Imports
 import { FaXmark } from "react-icons/fa6";
@@ -16,15 +16,21 @@ const Modal = dynamic(() => import("@/components/Modal"), {
   ssr: false,
 });
 
-function AuthModal({ dialogRef }: { dialogRef: RefObject<HTMLDialogElement> }) {
+function AuthModal({
+  open,
+  handleModalToggle,
+}: {
+  open: boolean;
+  handleModalToggle: () => void;
+}) {
   const [formType, setFormType] = useState<string>("auth");
   return (
-    <Modal ref={dialogRef}>
-      <div className="w-full md:max-w-2xl flex md:min-w-[40vw] relative">
+    <Dialog open={open} onClose={handleModalToggle} maxWidth="md">
+      <div className="w-full md:max-w-3xl flex md:min-w-[40vw] relative">
         <IconButton
           className="absolute right-2 top-2 bg-[#F9FAFB]"
           onClick={() => {
-            dialogRef.current?.close();
+            handleModalToggle();
             setFormType("auth");
           }}
         >
@@ -33,7 +39,7 @@ function AuthModal({ dialogRef }: { dialogRef: RefObject<HTMLDialogElement> }) {
         {formType === "auth" && <SignInOut setFormType={setFormType} />}
         {formType === "reset" && <ForgotPassword setFormType={setFormType} />}
       </div>
-    </Modal>
+    </Dialog>
   );
 }
 

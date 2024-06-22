@@ -31,7 +31,7 @@ import { BsTrash } from "react-icons/bs";
 import { IoSearchOutline } from "react-icons/io5";
 
 // Context Imports
-import { ColorModeContext } from "@/store/context/ThemeContext";
+import { ColorModeContext } from "@/appStateStore/context/ThemeContext";
 
 // Utils Imports
 import { preventDefaultHandler } from "@/utils/CommonFunctions";
